@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Netz</title>
+<meta name="theme-color" content="#0b0e1a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="logo">
+    <svg viewBox="0 0 40 40" class="logo-web"><use href="icons/icon.svg#web"></use></svg>
+    <span>Netz</span>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- MODUL 1: TAGESRAHMEN -->
+  <section class="modul" id="modul-tag" data-modul="tag">
+    <h1>Dein Tag</h1>
+
+    <div class="card">
+      <h2>Spinnensinn — wie fühlst du dich gerade?</h2>
+      <div class="spinnensinn-buttons">
+        <button class="btn energie" data-wert="bock">🕸️ Bock auf was</button>
+        <button class="btn energie" data-wert="leer">💤 Leer</button>
+        <button class="btn energie" data-wert="frustriert">⚡ Frustriert</button>
+      </div>
+      <div id="frust-frage" class="frust-frage hidden">
+        <p>Steckst du fest, weil...</p>
+        <button class="btn btn-secondary" data-frust="nicht-vorankommen">...du nicht vorankommst?</button>
+        <button class="btn btn-secondary" data-frust="ausgebremst">...dich wer ausgebremst hat?</button>
+      </div>
+      <p id="spinnensinn-feedback" class="feedback hidden"></p>
+    </div>
+
+    <div class="card">
+      <h2>Netz auswerfen</h2>
+      <p class="hint">Kleine Ideen, wenn du gerade Lust auf Input hast. Kein Muss.</p>
+      <button class="btn btn-web" id="btn-netz-alltag">🕸️ Netz auswerfen</button>
+      <div id="netz-alltag-ergebnis" class="netz-ergebnis hidden">
+        <p id="netz-alltag-text"></p>
+        <button class="btn" id="btn-alltag-uebernehmen">In meinen Tag übernehmen</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Dein Tagesrahmen</h2>
+      <p class="hint">Deine Zeiten, deine Aufgaben — auch Zockzeiten dürfen rein, wenn du sie dir bewusst gibst.</p>
+      <form id="form-block" class="inline-form">
+        <input type="text" id="input-zeit" placeholder="Zeit (z.B. 14:00, optional)">
+        <input type="text" id="input-aufgabe" placeholder="Was steht an?" required>
+        <button type="submit" class="btn">+ Hinzufügen</button>
+      </form>
+      <ul id="liste-bloecke" class="liste"></ul>
+    </div>
+
+    <div class="card">
+      <h2>Deine Momente</h2>
+      <p class="hint">Kleine Dinge, die geklappt haben. Nur für dich sichtbar.</p>
+      <form id="form-erfolg" class="inline-form">
+        <input type="text" id="input-erfolg" placeholder="Was ist dir heute gelungen?" required>
+        <button type="submit" class="btn">+ Festhalten</button>
+      </form>
+      <ul id="liste-erfolge" class="liste"></ul>
+    </div>
+  </section>
+
+  <!-- MODUL 2: BERUF -->
+  <section class="modul hidden" id="modul-beruf" data-modul="beruf">
+    <h1>Berufliche Orientierung</h1>
+
+    <div class="card">
+      <h2>Netz auswerfen</h2>
+      <p class="hint">Kleine reale Impulse zum Reagieren — kein Fragebogen, kein Zwang zur Festlegung.</p>
+      <button class="btn btn-web" id="btn-netz-beruf">🕸️ Netz auswerfen</button>
+      <div id="netz-beruf-ergebnis" class="netz-ergebnis hidden">
+        <p id="netz-beruf-text"></p>
+        <div class="reaktion-buttons">
+          <button class="btn" id="btn-beruf-ja">Ja, will ich mehr von</button>
+          <button class="btn btn-secondary" id="btn-beruf-nein">Nein, war nix</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Deine Ja-Momente</h2>
+      <p class="hint">Was wiederholt ein Ja auslöst — reine Beobachtung, kein Ranking.</p>
+      <ul id="liste-ja" class="liste"></ul>
+    </div>
+
+    <div class="card">
+      <h2>Wellen-Modus — große Entscheidung?</h2>
+      <p class="hint">Ausbildung anfangen, Bewerbung abschicken & Co: erst 24 Std. sacken lassen, dann nochmal reinspüren.</p>
+      <form id="form-welle" class="inline-form">
+        <input type="text" id="input-welle" placeholder="Worum geht's?" required>
+        <button type="submit" class="btn">Eintragen</button>
+      </form>
+      <ul id="liste-wellen" class="liste"></ul>
+    </div>
+  </section>
+
+  <!-- MODUL 3: RUECKBLICK -->
+  <section class="modul hidden" id="modul-rueckblick" data-modul="rueckblick">
+    <h1>Wochenrückblick</h1>
+    <p class="hint">Rein beschreibend — keine Note, kein Score. Nur du siehst das hier.</p>
+
+    <div class="card">
+      <h2>Spinnensinn-Verlauf (letzte 7 Tage)</h2>
+      <div id="rueckblick-energie" class="rueckblick-liste"></div>
+    </div>
+
+    <div class="card">
+      <h2>Berufsimpulse-Reaktionen (letzte 7 Tage)</h2>
+      <div id="rueckblick-beruf" class="rueckblick-liste"></div>
+    </div>
+
+    <div class="card">
+      <h2>Deine Momente (letzte 7 Tage)</h2>
+      <div id="rueckblick-erfolge" class="rueckblick-liste"></div>
+    </div>
+  </section>
+
+  <!-- MODUL 4: UPDATE -->
+  <section class="modul hidden" id="modul-update" data-modul="update">
+    <h1>Update für Mama</h1>
+    <p id="update-intro" class="hint"></p>
+
+    <div class="card">
+      <h2>Was soll rein?</h2>
+      <p class="hint">Nur was du auswählst, geht in den Text. Nichts automatisch.</p>
+      <div id="update-auswahl"></div>
+      <label class="freitext-label">Eigener Satz (optional)</label>
+      <textarea id="update-freitext" rows="2" placeholder="Willst du noch was dazuschreiben?"></textarea>
+      <button class="btn btn-web" id="btn-update-erstellen">Text erstellen</button>
+    </div>
+
+    <div class="card hidden" id="update-ergebnis-card">
+      <h2>Dein Text</h2>
+      <textarea id="update-ergebnis" rows="6" readonly></textarea>
+      <button class="btn" id="btn-update-kopieren">In Zwischenablage kopieren</button>
+      <p id="update-kopiert-feedback" class="feedback hidden">Kopiert! Jetzt einfach z.B. bei WhatsApp einfügen.</p>
+    </div>
+  </section>
+
+</main>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-target="tag">🏠 Tag</button>
+  <button class="tab-btn" data-target="beruf">💼 Beruf</button>
+  <button class="tab-btn" data-target="rueckblick">📈 Rückblick</button>
+  <button class="tab-btn" data-target="update">💬 Update</button>
+</nav>
+
+<script src="app.js"></script>
+</body>
+</html>
